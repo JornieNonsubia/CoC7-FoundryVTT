@@ -804,6 +804,17 @@ export class CoC7Utilities {
     return docUuid
   }
 
+  static getTokenOrActorUuid( document) {
+    if( !actor) return null
+    if( document instanceof String) return document
+    if( document instanceof token) return document.uuid
+    if( document instanceof actor){
+      if( document.token) return document.token.uuid
+      return document.uuid
+    }
+    return null
+  }
+
   static getDocumentFromKey (key) {
     if (!key) return null
     // Case 0 - a document Uuid

@@ -13,6 +13,7 @@ import { isCtrlKey } from '../../chat/helper.js'
 import { CoC7Parser } from '../../apps/parser.js'
 import { DamageCard } from '../../chat/cards/damage.js'
 import { CoC7LinkCreationDialog } from '../../apps/link-creation-dialog.js'
+import { CoC7MeleeCombatChatCard } from '../../chat/cards/combat/melee.js'
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -26,6 +27,8 @@ export class CoC7ActorSheet extends ActorSheet {
     data.data = actorData.data // Modif 0.8.x : data.data
     data.editable = this.isEditable // MODIF 0.8.x : editable removed
     /******************/
+
+    data.debugModeEnabled = game.settings.get('CoC7', 'debugmode')
 
     data.hasToken = !!this.token
     data.canDragToken = data.hasToken && game.user.isGM
@@ -849,6 +852,9 @@ export class CoC7ActorSheet extends ActorSheet {
       .on('dragstart', event => CoC7Parser._onDragCoC7Link(event))
 
     html.find('.test-trigger').click(async event => {
+      const t = this.token
+      const test = new CoC7MeleeCombatChatCard({attacker: this})
+      const p = test.attacker
       // await OpposedCheckCard.dispatch({
       //   type: OpposedCheckCard.defaultConfig.type,
       //   combat: false,
@@ -917,8 +923,9 @@ export class CoC7ActorSheet extends ActorSheet {
           typeof game.CoC7Tooltips.ToolTipHover !== 'undefined' &&
           game.CoC7Tooltips.ToolTipHover !== null
         ) {
-          const isCombat =
-            game.CoC7Tooltips.ToolTipHover.classList?.contains('combat')
+          const isCombat = game.CoC7Tooltips.ToolTipHover.classList?.contains(
+            'combat'
+          )
           const item = game.CoC7Tooltips.ToolTipHover.closest('.item')
           if (typeof item !== 'undefined') {
             const skillId = item.dataset.skillId

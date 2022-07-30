@@ -1,4 +1,10 @@
 <form class="{{cssClass}} flexcol {{#if permissionLimited}}permission-limited{{/if}}" autocomplete="off" data-actor-id="{{actor.id}}" {{#if tokenId}}data-token-id="{{tokenId}}" {{/if}}>
+  {{#if debugModeEnabled}}
+  <div class="floating-debug">
+    <a class="test-trigger" title='Test Icon, if you see that and do not know why, then you should not click it'>
+      <i class="game-icon game-icon-test-tubes"></i></a>
+  </div>
+  {{/if}}
   {{#unless permissionLimited}}
   <div class="token-extras">
 	{{#if canDragToken}}
@@ -236,10 +242,10 @@
           <div class="tab coc7 sheet actor temp-retro-compat restore-list-styles character-background" data-group="primary" data-tab="background">
             {{#if oneBlockBackStory}}
               {{editor content=data.backstory target="data.backstory" button=true owner=owner editable=editable}}
-              {{> "systems/CoC7/templates/actors/parts/actor-mythos-enounters.hbs"}}
             {{else}}
               {{> "systems/CoC7/templates/actors/parts/actor-background.html"}}
             {{/if}}
+            {{> "systems/CoC7/templates/actors/parts/actor-mythos-enounters.hbs"}}
           </div>
 
           {{#if isGM}}
