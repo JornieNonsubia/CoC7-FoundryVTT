@@ -1,5 +1,5 @@
 <form class="{{cssClass}} flexcol {{#if permissionLimited}}permission-limited{{/if}}" autocomplete="off" data-actor-id="{{actor.id}}" {{#if tokenId}}data-token-id="{{tokenId}}" {{/if}}>
-  {{#if debugModeEnabled}}
+  {{#if showHiddenDevMenu}}
   <div class="floating-debug">
     <a class="test-trigger" title='Test Icon, if you see that and do not know why, then you should not click it'>
       <i class="game-icon game-icon-test-tubes"></i></a>
@@ -252,7 +252,7 @@
             <div class="tab coc7 sheet actor temp-retro-compat restore-list-styles character-background" data-group="primary" data-tab="keeper">
               {{editor content=data.description.keeper target="data.description.keeper" button=true owner=owner editable=editable}}
               {{#if hasConditions}}
-                <div><a class="clear_conditions button">Clear All Conditions</a></div>
+                <div><a class="clear_conditions button">{{localize 'CoC7.ClearAllConditions'}}</a></div>
               {{/if}}
               <div class="flexrow">
                 {{> "systems/CoC7/templates/actors/parts/actor-keeper-mythos-enounters.hbs"}}
